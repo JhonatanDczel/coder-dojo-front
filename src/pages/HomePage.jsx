@@ -33,12 +33,7 @@ function HomePage() {
   return (
     <div className="bg-dojo-day dark:bg-dojo-night bg-cover bg-center h-screen w-screen flex">
       <div className="relative flex-grow">
-        <div className="absolute top-5 left-5 p-4">
-          <Logo path="/src/assets/logos/IEEE-CS-UNSA.png" />
-        </div>
-        <div className="absolute top-5 right-5 p-4">
-          <Logo path="/src/assets/logos/CoderDojo.png" />
-        </div>
+
         <div className="relative flex flex-col items-center justify-center min-h-screen ">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative bg-white bg-opacity-70 backdrop-blur-md p-8 rounded-lg shadow-lg text-center max-w-lg">
@@ -52,6 +47,14 @@ function HomePage() {
               </p>
             </div>
           </div>
+        <div className="absolute top-5 left-5 p-4">
+          <Logo path="/src/assets/logos/IEEE-CS-UNSA.png" />
+        </div>
+        <a href="https://coderdojo.com/en/" target="_blank" className="inset-1">
+          <div className="absolute top-5 right-5 p-4">
+            <Logo path="/src/assets/logos/CoderDojo.png" />
+          </div>
+        </a>
           <div className="absolute bottom-5 left-5 p-4">
             <DojoTypeButton onClick={handleDojoTypeButtonClick} />
           </div>
