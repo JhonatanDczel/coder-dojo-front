@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import '../../assets/DojoType.css'
 import sentences from "../../utils/sentences";
 
+
 function DisplayArea() {
   const [result, setResult] = useState(false);
   const [sentence, setSentence] = useState(
@@ -122,7 +123,6 @@ function DisplayArea() {
       {isExploding && (
         <div className="text-[30px] text-orange-500 animate-bounce">
           🎉 Nuevo Record: {localStorage.getItem("wpm")}🎉
-          <ConfettiExplosion />
         </div>
       )}
       {/* <h1 className='text-3xl text-gray-600'>sl {sentence.length}</h1> */}

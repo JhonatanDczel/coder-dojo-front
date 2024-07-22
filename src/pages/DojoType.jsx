@@ -5,6 +5,12 @@ import Footer from '../components/minigame/Footer'
 import { useEffect, useRef, useState } from 'react'
 
 const DojoType = () => {
+
+  useEffect(() => {
+    window.localStorage.setItem("wpm", 60);
+  }, [])
+  
+
   const [display, setDisplay] = useState(false)
   const inputRef = useRef();
 
