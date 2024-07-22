@@ -1,3 +1,5 @@
+import HomePage from "./pages/HomePage";
+
 function App() {
   // Aqui se prueban las vistas, ejemplo de uso: 
 
@@ -8,7 +10,7 @@ function App() {
   */
 
   return (
-    <></>
+    <HomePage />
   );
 }
 
