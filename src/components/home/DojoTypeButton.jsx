@@ -1,8 +1,8 @@
 import { FaCode } from "react-icons/fa";
 
-export default function DojoTypeButton() {
+export default function DojoTypeButton({onClick}) {
   return (
-    <button className="flex items-center rounded-2xl overflow-hidden bg-gray-800 text-white shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <button onClick={onClick} className="flex items-center rounded-2xl overflow-hidden bg-gray-800 text-white shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
       <div className="w-2/3 p-4 flex flex-col">
         <p className="text-lg font-semibold">
           ¿Calentamiento? <br /> Ir a DojoType <FaCode className="inline text-blue-400" />
