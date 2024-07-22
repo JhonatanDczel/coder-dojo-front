@@ -48,11 +48,11 @@ function HomePage() {
             </div>
           </div>
         <div className="absolute top-5 left-5 p-4">
-          <Logo path="/src/assets/logos/IEEE-CS-UNSA.png" />
+          <Logo path="/src/assets/IEEE-CS-UNSA.png" />
         </div>
         <a href="https://coderdojo.com/en/" target="_blank" className="inset-1">
           <div className="absolute top-5 right-5 p-4">
-            <Logo path="/src/assets/logos/CoderDojo.png" />
+            <Logo path="/src/assets/CoderDojo.png" />
           </div>
         </a>
           <div className="absolute bottom-5 left-5 p-4">
