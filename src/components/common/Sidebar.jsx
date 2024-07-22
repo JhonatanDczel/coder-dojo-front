@@ -9,12 +9,24 @@ const tasks = [
   { id: 5, name: 'Tarea 5', status: 'pendiente' },
   { id: 6, name: 'Tarea 6', status: 'pendiente' },
 ];
+const courses = [
+  { id: 1, name: 'Estructuras de datos' },
+  { id: 2, name: 'Algoritmos' },
+  { id: 3, name: 'Bases de datos' },
+  { id: 4, name: 'Inteligencia Artificial' },
+  { id: 5, name: 'Sistemas Operativos' },
+];
 
 const Sidebar = () => {
   const [isTasksOpen, setIsTasksOpen] = useState(false);
+  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
 
   const toggleTasks = () => {
     setIsTasksOpen(!isTasksOpen);
+  };
+
+  const toggleCourses = () => {
+    setIsCoursesOpen(!isCoursesOpen);
   };
 
   return (
@@ -26,9 +38,18 @@ const Sidebar = () => {
             <FaHome className="mr-4" />
             <span>Inicio</span>
           </li>
-          <li className="mb-4 flex items-center">
-            <FaCalendar className="mr-4" />
-            <span>Calendar</span>
+          <li className="mb-4 flex flex-col">
+            <div className="flex items-center cursor-pointer" onClick={toggleCourses}>
+              <FaCalendar className="mr-4" />
+              <span>Cursos inscritos</span>
+            </div>
+            {isCoursesOpen && (
+              <ul className="mt-2 ml-8 list-disc">
+                {courses.slice(0, 4).map(course => (
+                  <li key={course.id} className="text-sm">{course.name}</li>
+                ))}
+              </ul>
+            )}
           </li>
           <li className="mb-4 flex flex-col">
             <div className="flex items-center cursor-pointer" onClick={toggleTasks}>
