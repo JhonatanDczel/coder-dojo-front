@@ -1,8 +1,7 @@
 import React from 'react';
 import Sidebar from './components/common/Sidebar';
-import CoursesList from './components/student/CoursesList';
-import TasksList from './components/student/TasksList';
 import Navbar from './components/common/Navbar';
+import StudentRoutes from './routes/StudentRoutes';
 
 const App = () => {
   return (
@@ -10,9 +9,8 @@ const App = () => {
       <Sidebar />
       <div className="ml-64 w-full">
         <Navbar />
-        <div className="pt-16"> {/* Ajusta el padding-top según la altura de tu Navbar */}
-          <CoursesList />
-          <TasksList />
+        <div className="pt-16">
+          <StudentRoutes />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaHome, FaCalendar, FaBook, FaClipboardList, FaArchive } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const tasks = [
   { id: 1, name: 'Tarea 1', status: 'pendiente' },
@@ -9,12 +10,13 @@ const tasks = [
   { id: 5, name: 'Tarea 5', status: 'pendiente' },
   { id: 6, name: 'Tarea 6', status: 'pendiente' },
 ];
+
 const courses = [
-  { id: 1, name: 'Estructuras de datos' },
-  { id: 2, name: 'Algoritmos' },
-  { id: 3, name: 'Bases de datos' },
-  { id: 4, name: 'Inteligencia Artificial' },
-  { id: 5, name: 'Sistemas Operativos' },
+  { id: 1, name: 'Estructuras de datos', imgSrc: '/path/to/image1.jpg' },
+  { id: 2, name: 'Algoritmos', imgSrc: '/path/to/image2.jpg' },
+  { id: 3, name: 'Bases de datos', imgSrc: '/path/to/image3.jpg' },
+  { id: 4, name: 'Inteligencia Artificial', imgSrc: '/path/to/image4.jpg' },
+  { id: 5, name: 'Sistemas Operativos', imgSrc: '/path/to/image5.jpg' },
 ];
 
 const Sidebar = () => {
@@ -44,9 +46,14 @@ const Sidebar = () => {
               <span>Cursos inscritos</span>
             </div>
             {isCoursesOpen && (
-              <ul className="mt-2 ml-8 list-disc">
+              <ul className="mt-2 ml-8 list-none">
                 {courses.slice(0, 4).map(course => (
-                  <li key={course.id} className="text-sm">{course.name}</li>
+                  <li key={course.id} className="text-sm mb-2">
+                    <Link to={`/course/${course.id}`} className="flex items-center">
+                      <img src={course.imgSrc} alt={course.name} className="w-8 h-8 rounded-full mr-2" />
+                      {course.name}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             )}
@@ -57,14 +64,18 @@ const Sidebar = () => {
               <span>Tareas pendientes</span>
             </div>
             {isTasksOpen && (
-              <ul className="mt-2 ml-8 list-disc">
+              <ul className="mt-2 ml-8 list-none">
                 {tasks.slice(0, 5).map(task => (
                   <li key={task.id} className="text-sm">{task.name}</li>
                 ))}
               </ul>
             )}
           </li>
-       </ul>
+          <li className="mb-4 flex items-center">
+            <FaArchive className="mr-4" />
+            <span>Clases archivadas</span>
+          </li>
+        </ul>
       </div>
     </div>
   );
