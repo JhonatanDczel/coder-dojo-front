@@ -9,7 +9,7 @@ const courses = [
 
 const CoursesList = () => {
   return (
-    <div className="ml-64 p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-gray-100 min-h-screen">
       <h2 className="text-3xl font-bold mb-6">Clases</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course) => (
