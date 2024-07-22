@@ -1,6 +1,6 @@
-## Layouts
+# Layouts
 
-Aqui creas los layouts que creas convenientes, un ejemplo seria el layout de dashboard (que se aplica tanto a profesor como a estudiante) que seria: 
+Aqui creas los layouts que creas convenientes, un ejemplo seria el layout de dashboard (que se aplica tanto a profesor como a estudiante) que seria:
 
 - sidebar: es la barra vertical en la que estan las opciones para cambiar la vista principal para cargar los cursos, foro, etc
 

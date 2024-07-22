@@ -1,22 +1,11 @@
-import React from 'react';
-import Sidebar from './components/common/Sidebar';
-import Navbar from './components/common/Navbar';
-import StudentRoutes from './routes/StudentRoutes';
-import CoursesList from './components/student/CoursesList';
+import HomePage from './pages/HomePage';
+
 
 const App = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="ml-64 w-full">
-        <Navbar />
-        <div className="pt-16">
-          <StudentRoutes />
-        </div>
-        <CoursesList />
-      </div>
-    </div>
-  );
+    <HomePage />
+  )
+
 };
 
 export default App;
