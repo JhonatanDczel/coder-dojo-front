@@ -1,5 +1,6 @@
 import { LoginForm } from "../components/auth/Login";
 import Logo from "../components/common/Logo";
+import DojoTypeButton from "../components/home/DojoTypeButton";
 
 function HomePage() {
   return (
@@ -7,6 +8,7 @@ function HomePage() {
       <div>
         <Logo path="/src/assets/logos/CoderDojo.png" />
         <Logo path="/src/assets/logos/IEEE-CS-UNSA.png" />
+        <DojoTypeButton />
       </div>
       <LoginForm />
     </div>
