@@ -1,7 +1,13 @@
 import { FaBriefcase } from "react-icons/fa";
 import { PiNotebookFill } from "react-icons/pi";
+import { useEffect } from "react";
 
-export default function LoginAs() {
+
+export default function LoginAs( {un} ) {
+  useEffect(()=>{
+    console.log(un)
+  },
+  [un]);
   return (
     <div className="flex flex-col items-center mt-20">
       <h3 className="text-gray-100 text-lg font-semibold mb-2">Login as:</h3>
