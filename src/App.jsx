@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from './components/common/Sidebar';
 import Navbar from './components/common/Navbar';
 import StudentRoutes from './routes/StudentRoutes';
+import CoursesList from './components/student/CoursesList';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <div className="pt-16">
           <StudentRoutes />
         </div>
+        <CoursesList />
       </div>
     </div>
   );

@@ -47,12 +47,10 @@ const Sidebar = () => {
             </div>
             {isCoursesOpen && (
               <ul className="mt-2 ml-8 list-none">
-                {courses.slice(0, 4).map(course => (
+                {courses.map(course => (
                   <li key={course.id} className="text-sm mb-2">
-                    <Link to={`/course/${course.id}`} className="flex items-center">
                       <img src={course.imgSrc} alt={course.name} className="w-8 h-8 rounded-full mr-2" />
                       {course.name}
-                    </Link>
                   </li>
                 ))}
               </ul>

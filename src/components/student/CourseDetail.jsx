@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 
 const courses = [
@@ -10,7 +9,9 @@ const courses = [
 ];
 
 const CourseDetail = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
+  // asegurar
+  const id = 1;
   const course = courses.find(course => course.id === parseInt(id));
 
   return (
