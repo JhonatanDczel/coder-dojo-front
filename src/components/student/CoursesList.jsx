@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaCamera, FaFolder } from 'react-icons/fa';
 
 const courses = [
   { id: 1, name: 'Estructuras de datos', teacher: 'Edson Luque', imgSrc: '/path/to/image.jpg' },
