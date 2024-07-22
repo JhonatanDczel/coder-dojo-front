@@ -23,8 +23,10 @@ export function LoginForm({ className }) {
         <Input type="text" label="Username" onChange={(e)=>{
           setUsername(e.target.value)
         }}/>
-        <Input type="password" label="Contraseña" />
-        <LoginAs un={username} />
+        <Input type="password" label="Contraseña" onChange={(e)=>{
+          setContrasenia(e.target.value)
+        }}/>
+        <LoginAs un={username} psw={contrasenia}/>
       </form>
         <button type="submit" className="self-center mt-10 text-white bg-slate-600 py-3 px-3 font-semibold text-lg w-32 rounded-xl"> Ingresar </button>
     </div>
