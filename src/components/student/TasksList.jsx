@@ -1,4 +1,3 @@
-// src/components/student/TasksList.jsx
 import React from 'react';
 
 const tasks = [

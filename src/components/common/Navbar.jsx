@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaUserCircle, FaQuestionCircle } from 'react-icons/fa';
+import { FaUserCircle, FaQuestionCircle, FaCog } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
@@ -8,6 +8,9 @@ const Navbar = () => {
       <div className="flex items-center">
         <button className="mr-4">
           <FaQuestionCircle size={24} />
+        </button>
+        <button className="mr-4">
+          <FaCog size={24} />
         </button>
         <div className="flex items-center">
           <FaUserCircle size={24} className="mr-2" />

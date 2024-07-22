@@ -1,6 +1,5 @@
-// src/components/common/Sidebar.jsx
 import React, { useState } from 'react';
-import { FaHome, FaCalendar, FaBook, FaClipboardList, FaArchive, FaCog } from 'react-icons/fa';
+import { FaHome, FaCalendar, FaBook, FaClipboardList, FaArchive } from 'react-icons/fa';
 
 const tasks = [
   { id: 1, name: 'Tarea 1', status: 'pendiente' },
@@ -31,10 +30,6 @@ const Sidebar = () => {
             <FaCalendar className="mr-4" />
             <span>Calendar</span>
           </li>
-          <li className="mb-4 flex items-center">
-            <FaBook className="mr-4" />
-            <span>Cursos en los que te has inscrito</span>
-          </li>
           <li className="mb-4 flex flex-col">
             <div className="flex items-center cursor-pointer" onClick={toggleTasks}>
               <FaClipboardList className="mr-4" />
@@ -48,15 +43,7 @@ const Sidebar = () => {
               </ul>
             )}
           </li>
-          <li className="mb-4 flex items-center">
-            <FaArchive className="mr-4" />
-            <span>Clases archivadas</span>
-          </li>
-          <li className="mb-4 flex items-center">
-            <FaCog className="mr-4" />
-            <span>Ajustes</span>
-          </li>
-        </ul>
+       </ul>
       </div>
     </div>
   );
