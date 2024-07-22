@@ -5,6 +5,8 @@ import DojoTypeButton from "../components/home/DojoTypeButton";
 import ThemeSwitcher from "../components/home/ThemeButton";
 import DojoType from "./DojoType";
 import { IoCloseCircle } from "react-icons/io5";
+import "../assets/IEEE-CS-UNSA.png"
+import "../assets/CoderDojo.png"
 
 function HomePage() {
   const [isDojoTypeOpen, setIsDojoTypeOpen] = useState(false);
