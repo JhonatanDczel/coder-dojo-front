@@ -1,0 +1,47 @@
+const sentences = [
+    "The sky is blue.",
+    "Coffee is my morning fuel.",
+    "React makes building UIs fun.",
+    "Coding challenges improve problem-solving skills.",
+    "Music is a universal language.",
+    "Sunsets are proof that no matter what happens, every day can end beautifully.",
+    "Reading is a great way to relax.",
+    "Innovation distinguishes between a leader and a follower.",
+    "Chocolate is the best stress-reliever.",
+    "Traveling broadens the mind.",
+    "A journey of a thousand miles begins with a single step.",
+    "Learning is a lifelong adventure.",
+    "Kindness is contagious.",
+    "Life is short, enjoy the little things.",
+    "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+    "Nature has its own way of healing.",
+    "Coding is like solving puzzles.",
+    "The early bird catches the worm.",
+    "Creativity is intelligence having fun.",
+    "Smile, it's contagious.",
+    "The quick brown fox jumps over the lazy dog near the riverbank.",
+    "A beautiful sunset painted the sky with hues of orange and pink.",
+    "In the enchanted forest, fairies danced beneath the moonlight.",
+    "The ancient castle stood tall on the hill overlooking the village.",
+    "Mysterious shadows whispered secrets in the abandoned mansion.",
+    "Gentle waves caressed the sandy shore on that peaceful morning.",
+    "Lost in thought, she wandered through the bustling city streets.",
+    "The melody of the piano filled the room with sweet harmony.",
+    "A distant thunderstorm echoed through the dark and stormy night.",
+    "The scent of fresh flowers lingered in the warm summer air.",
+    "With a telescope in hand, he explored the vastness of the cosmos.",
+    "The wise owl perched on a branch, observing the world below.",
+    "Golden leaves rustled in the breeze on the autumn afternoon.",
+    "Sailing across the azure sea, they discovered a hidden island.",
+    "Casting a spell, the magician made a rabbit appear out of thin air.",
+    "The mountain range stretched across the horizon like a giant's spine.",
+    "Captivated by the story, the audience applauded the brilliant performance.",
+    "Sparkling crystals adorned the cave walls, creating a magical glow.",
+    "In the meadow, butterflies danced among the wildflowers in the sunlight.",
+    "Guided by the North Star, they journeyed through the snowy wilderness."
+  ];
+  
+
+  
+  export default sentences;
+  
