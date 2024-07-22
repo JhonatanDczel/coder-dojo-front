@@ -14,9 +14,12 @@ export function LoginForm({ className }) {
           Inicia sesión con tus credenciales
         </p>
       </div>
-      <Input type="text" label="Username" />
-      <Input type="password" label="Contraseña" />
-      <LoginAs />
+      <form action="">
+        <Input type="text" label="Username" />
+        <Input type="password" label="Contraseña" />
+        <LoginAs />
+      </form>
+        <button type="submit" className="self-center mt-10 text-white bg-slate-600 py-3 px-3 font-semibold text-lg w-32 rounded-xl"> Ingresar </button>
     </div>
   );
 }
