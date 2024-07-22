@@ -9,6 +9,7 @@ function HomePage() {
         <Logo path="/src/assets/logos/CoderDojo.png" />
         <Logo path="/src/assets/logos/IEEE-CS-UNSA.png" />
         <DojoTypeButton />
+        <h1>¡Bienvenido a CoderDojo!</h1>
       </div>
       <LoginForm />
     </div>
