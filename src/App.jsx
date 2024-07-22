@@ -1,3 +1,4 @@
+import DojoType from "./pages/DojoType";
 import HomePage from "./pages/HomePage";
 
 function App() {

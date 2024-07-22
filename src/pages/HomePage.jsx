@@ -1,9 +1,35 @@
+import { useState, useEffect } from "react";
 import { LoginForm } from "../components/auth/Login";
 import Logo from "../components/common/Logo";
 import DojoTypeButton from "../components/home/DojoTypeButton";
 import ThemeSwitcher from "../components/home/ThemeButton";
+import DojoType from "./DojoType";
+import { IoCloseCircle } from "react-icons/io5";
 
 function HomePage() {
+  const [isDojoTypeOpen, setIsDojoTypeOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "k" || event.key === "K") {
+        setIsDojoTypeOpen(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
+
+  const handleDojoTypeButtonClick = () => {
+    setIsDojoTypeOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsDojoTypeOpen(false);
+  };
+
   return (
     <div className="bg-dojo-day dark:bg-dojo-night bg-cover bg-center h-screen w-screen flex">
       <div className="relative flex-grow">
@@ -26,14 +52,8 @@ function HomePage() {
               </p>
             </div>
           </div>
-          <div className="absolute top-5 left-5 p-4">
-            <Logo path="/src/assets/logos/IEEE-CS-UNSA.png" />
-          </div>
-          <div className="absolute top-5 right-5 p-4">
-            <Logo path="/src/assets/logos/CoderDojo.png" />
-          </div>
           <div className="absolute bottom-5 left-5 p-4">
-            <DojoTypeButton />
+            <DojoTypeButton onClick={handleDojoTypeButtonClick} />
           </div>
           <div className="absolute bottom-5 right-5 p-4">
             <ThemeSwitcher />
@@ -42,6 +62,20 @@ function HomePage() {
       </div>
 
       <LoginForm />
+
+      {isDojoTypeOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gray-900 bg-opacity-80 backdrop-blur-md p-4 rounded-3xl shadow-lg w-[90vw] h-5/6 relative">
+            <DojoType />
+            <button
+              className="absolute top-1 right-1 text-4xl text-red-500 p-2 rounded"
+              onClick={handleClosePopup}
+            >
+              <IoCloseCircle />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
