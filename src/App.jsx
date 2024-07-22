@@ -1,13 +1,15 @@
 import React from 'react';
+import Sidebar from './components/common/Sidebar';
 import CoursesList from './components/student/CoursesList';
-import TasksList from './components/student/TasksList';
+import './styles/global.css';
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-4">Vista de Clases y Tareas</h1>
-      <CoursesList />
-      <TasksList />
+    <div className="flex">
+      <Sidebar />
+      <div className="ml-64 w-full">
+        <CoursesList />
+      </div>
     </div>
   );
 };
