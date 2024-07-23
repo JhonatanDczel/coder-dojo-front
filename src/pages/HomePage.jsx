@@ -32,6 +32,19 @@ function HomePage() {
     setIsDojoTypeOpen(false);
   };
 
+  const handleKeyDown = (event) => {
+    if(event.key === 'Tab' && isDojoTypeOpen){
+      event.preventDefault();
+    }
+  }
+
+  useEffect(()=>{
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isDojoTypeOpen])
+
   return (
     <div className="bg-dojo-day dark:bg-dojo-night bg-cover bg-center h-screen w-screen flex">
       <div className="relative flex-grow">
@@ -50,11 +63,11 @@ function HomePage() {
             </div>
           </div>
           <div className="absolute top-5 left-5 p-4">
-            <Logo path={IEEELogo} />
+            <Logo path={IEEELogo} size="h-28"/>
           </div>
           <a href="https://coderdojo.com/en/" target="_blank" className="inset-1">
             <div className="absolute top-5 right-5 p-4">
-              <Logo path={coderDojoLogo} />
+              <Logo path={coderDojoLogo} size={"h-[4.5rem]"}/>
             </div>
           </a>
           <div className="absolute bottom-5 left-5 p-4">

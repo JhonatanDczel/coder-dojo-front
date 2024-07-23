@@ -1,6 +1,6 @@
 import Input from "./Input";
 import LoginAs from "./LoginAs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export function LoginForm({ className }) {
 
@@ -28,7 +28,6 @@ export function LoginForm({ className }) {
         }}/>
         <LoginAs un={username} psw={contrasenia}/>
       </form>
-        <button type="submit" className="self-center mt-10 text-white bg-slate-600 py-3 px-3 font-semibold text-lg w-32 rounded-xl"> Ingresar </button>
     </div>
   );
 }

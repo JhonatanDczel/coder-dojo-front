@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
-import '../../assets/DojoType.css'
+import "../../assets/DojoType.css";
 import sentences from "../../utils/sentences";
-
+import { MdError, MdKeyboard, MdOutlineBolt } from "react-icons/md";
+import ConfettiExplosion from "react-confetti-explosion";
+import { TbCircleLetterAFilled } from "react-icons/tb";
+import { RiTimerFill } from "react-icons/ri";
 
 function DisplayArea() {
+  function insertSpaces(num) {
+    const spaces = [];
+    for (let i = 0; i < num; i++) {
+      spaces.push(<span key={i}>&nbsp;</span>);
+    }
+    return <>{spaces}</>;
+  }
   const [result, setResult] = useState(false);
   const [sentence, setSentence] = useState(
     sentences[Math.floor(Math.random() * sentences.length)].toLowerCase()
@@ -81,15 +91,23 @@ function DisplayArea() {
 
   function WPA() {
     return (
-      <div>
-        <h1 className="text-[40px] text-yellow-400">{wordpermin} WPM</h1>
-        <h1 className="text-[30px] text-white">
-          Precisión {accuracy.toFixed(2)}%
+      <div className="font-semibold flex flex-col gap-2">
+        <h1 className="text-[40px] text-yellow-300 flex gap-3 items-center">
+          <MdOutlineBolt />
+          {wordpermin} WPM
         </h1>
-        <h1 className="text-[30px] text-green-500">
-          Tiempo {timeTaken.toFixed(2)}s
+        <h1 className="text-[30px] text-green-400 flex gap-3 items-center">
+          <TbCircleLetterAFilled />
+          Precisión: {insertSpaces(1)} {accuracy.toFixed(2)}%
         </h1>
-        <h1 className="text-[30px] text-red-500">Errores {errors}</h1>
+        <h1 className="text-[30px] text-white flex gap-3 items-center">
+          <RiTimerFill />
+          Tiempo: &nbsp; &nbsp;&ensp; {timeTaken.toFixed(2)}s
+        </h1>
+        <h1 className="flex gap-3 items-center text-[30px] text-red-400">
+          <MdError />
+          Errores: &nbsp; &nbsp; &ensp; {errors}
+        </h1>
       </div>
     );
   }
@@ -117,12 +135,29 @@ function DisplayArea() {
     };
   }, [result]);
 
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPressReset);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPressReset);
+    };
+  }, [result]);
+
+  function handleKeyPressReset(event){
+    if(event.key === "Tab"){
+      setResult(false)
+    }
+  }
+
+
   // console.log(handleKeyPress())
   return (
     <div className="flex flex-col justify-center items-center bg-gray-800 bg-opacity-0 h-full w-full">
       {isExploding && (
-        <div className="text-[30px] text-orange-500 animate-bounce">
-          🎉 Nuevo Record: {localStorage.getItem("wpm")}🎉
+        <div className="text-[30px] text-orange-400 animate-bounce mb-8 font-semibold">
+          🎉 Nuevo Record: {localStorage.getItem("wpm")} 🎉
+          {isExploding && (
+            <ConfettiExplosion zIndex={100} height={"100vh"} width={1700} />
+          )}
         </div>
       )}
       {/* <h1 className='text-3xl text-gray-600'>sl {sentence.length}</h1> */}
