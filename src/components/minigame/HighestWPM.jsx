@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../../assets/DojoType.css'
 const HighestWPM = () => {
-    const [wpm , setWpm ] =useState(localStorage.getItem('wpm'))
+    const [wpm , setWpm ] =useState(localStorage.getItem('wpm') || 0)
 
     useEffect(()=>{
         
