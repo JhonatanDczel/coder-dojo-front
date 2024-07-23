@@ -5,8 +5,8 @@ import DojoTypeButton from "../components/home/DojoTypeButton";
 import ThemeSwitcher from "../components/home/ThemeButton";
 import DojoType from "./DojoType";
 import { IoCloseCircle } from "react-icons/io5";
-// import "../assets/IEEE-CS-UNSA.png"
-// import "../assets/CoderDojo.png"
+import IEEELogo from "../assets/IEEE-CS-UNSA.png"
+import coderDojoLogo from "../assets/CoderDojo.png"
 
 function HomePage() {
   const [isDojoTypeOpen, setIsDojoTypeOpen] = useState(false);
@@ -49,14 +49,14 @@ function HomePage() {
               </p>
             </div>
           </div>
-        <div className="absolute top-5 left-5 p-4">
-          <Logo path="/src/assets/IEEE-CS-UNSA.png" />
-        </div>
-        <a href="https://coderdojo.com/en/" target="_blank" className="inset-1">
-          <div className="absolute top-5 right-5 p-4">
-            <Logo path="/src/assets/CoderDojo.png" />
+          <div className="absolute top-5 left-5 p-4">
+            <Logo path={IEEELogo} />
           </div>
-        </a>
+          <a href="https://coderdojo.com/en/" target="_blank" className="inset-1">
+            <div className="absolute top-5 right-5 p-4">
+              <Logo path={coderDojoLogo} />
+            </div>
+          </a>
           <div className="absolute bottom-5 left-5 p-4">
             <DojoTypeButton onClick={handleDojoTypeButtonClick} />
           </div>
