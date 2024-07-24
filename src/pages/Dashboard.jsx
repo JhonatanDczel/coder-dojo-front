@@ -6,7 +6,7 @@ import StudentRoutes from "../routes/StudentRoutes";
 
 
 
-export default function Dashboard(){
+export default function Dashboard({rol}){
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
