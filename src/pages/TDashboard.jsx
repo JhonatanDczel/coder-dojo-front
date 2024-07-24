@@ -1,12 +1,12 @@
 import Navbar from "../components/common/Navbar";
-import Sidebar from "../components/student/Sidebar";
+import Sidebar from "../components/teacher/TSidebar";
 import CoursesList from "../components/student/CoursesList";
 import StudentRoutes from "../routes/StudentRoutes";
 
 export default function Dashboard(){
   return (
     <div className="flex">
-      <Sidebar />
+      <TSidebar />
       <div className="ml-64 w-full">
         <Navbar />
         <div className="pt-16">

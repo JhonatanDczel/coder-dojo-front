@@ -1,4 +1,3 @@
-// src/components/student/CoursesList.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaCamera, FaFolder } from 'react-icons/fa';
