@@ -23,9 +23,9 @@ export default function LoginAs( {un, psw} ) {
   function loginUserStudent(e){
     e.preventDefault();
     client.post(
-      "api/login",
+      "api/loginUser",
       {
-        email : un,
+        username : un,
         password: psw
       }
     ).then(function(res){
@@ -39,9 +39,9 @@ export default function LoginAs( {un, psw} ) {
   function loginUserTeacher(e){
     e.preventDefault();
     client.post(
-      "api/login",
+      "api/loginUser",
       {
-        email: un,
+        username: un,
         password: psw
       }
     ).then(function(res){

@@ -1,13 +1,3 @@
-import { useEffect, useState } from "react";
-import Navbar from "../components/common/Navbar";
-import Sidebar from "../components/common/Sidebar";
-import CoursesList from "../components/student/CoursesList";
-import StudentRoutes from "../routes/StudentRoutes";
-
-
-
-export default function Dashboard(){
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,18 +23,10 @@ export default function Dashboard(){
     fetchData();
   }, []); // El array vacío [] asegura que el efecto solo se ejecute una vez, cuando el componente se monta
 
-
-
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="ml-64 w-full">
-        <Navbar un={data.docente.name}/>
-        <div className="pt-16">
-          <StudentRoutes />
-        </div>
-        <CoursesList />
-      </div>
+    <div>
+      {data.map(item => (
+        <div key={item.id}>{item.nombre}</div>
+      ))}
     </div>
-    )
-}
+  );
