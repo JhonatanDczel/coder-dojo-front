@@ -1,19 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
+import { Routes, Route } from 'react-router-dom';
 import StudentDashboard from '../pages/StudentDashboard';
-import CourseDetail from '../components/student/CourseDetail';
+import CourseDetail from '../pages/CourseDetail';
 
 const StudentRoutes = () => {
-  return (
-    
-      <Routes>
-        {/* <Route path="/" element={<HomePage />} /> */}
-        <Route path="/dashboard" element={<StudentDashboard />} />
-        <Route path="/course/:id" element={<CourseDetail />} />
-      </Routes>
-    
-  );
+    return (
+        <Routes>
+            <Route path="/dashboard" element={<StudentDashboard />} />
+            <Route path="/course/:id" element={<CourseDetail />} />
+        </Routes>
+    );
 };
 
 export default StudentRoutes;

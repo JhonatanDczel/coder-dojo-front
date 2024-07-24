@@ -3,7 +3,7 @@ import Sidebar from "../components/common/Sidebar";
 import CoursesList from "../components/student/CoursesList";
 import StudentRoutes from "../routes/StudentRoutes";
 
-export default function Bashboard(){
+export default function Dashboard(){
   return (
     <div className="flex">
       <Sidebar />
