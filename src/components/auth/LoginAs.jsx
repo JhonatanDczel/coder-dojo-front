@@ -29,10 +29,10 @@ export default function LoginAs( {un, psw} ) {
         password: psw
       }
     ).then(function(res){
-      window.location.href = '/clase';
+      window.location.href = '/clase/0';
     }).catch(function(error) {
       console.error('Error al iniciar sesión:', error);
-      window.location.href = '/clase';
+      window.location.href = '/clase/0';
     });
 
   }
@@ -45,7 +45,7 @@ export default function LoginAs( {un, psw} ) {
         password: psw
       }
     ).then(function(res){
-      window.location.href = '/clase';
+      window.location.href = '/clase/1';
     })
   }
   return (

@@ -33,7 +33,7 @@ const Sidebar = () => {
                 <ul>
                     <li className="mb-4 flex items-center">
                         <FaHome className="mr-4" />
-                        <Link to="/clase">Inicio</Link>
+                        <Link to="/clase/0">Inicio</Link>
                     </li>
                     <li className="mb-4 flex flex-col">
                         <div className="flex items-center cursor-pointer" onClick={toggleCourses}>
