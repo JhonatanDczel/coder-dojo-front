@@ -33,7 +33,7 @@ export default function LoginAs({ un, psw }) {
   async function loginUser(e, userType) {
     e.preventDefault();
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/loginUser", {
+      const response = await fetch("http://localhost:8000/api/loginUser", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default function LoginAs({ un, psw }) {
 
 
       if (response.ok) {
-        console.log('todo bien el el login:')
+        console.log('todo bien en el login, response:')
         console.log(response)
         if (userType === 'teacher') {
           window.location.href = '/clase/1';
@@ -56,7 +56,7 @@ export default function LoginAs({ un, psw }) {
           window.location.href = '/clase/0';
         }
       } else {
-        console.error('Error al iniciar sesión:', response.statusText);
+        console.error('Error al iniciar sesion (1):', response.statusText);
         if (userType === 'teacher') {
           window.location.href = '/clase/1';
         } else {
@@ -64,7 +64,7 @@ export default function LoginAs({ un, psw }) {
         }
       }
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
+      console.error('Error al iniciar sesión (2):', error);
       if (userType === 'teacher') {
         window.location.href = '/clase/1';
       } else {
