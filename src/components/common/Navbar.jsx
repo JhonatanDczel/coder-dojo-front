@@ -7,20 +7,8 @@ import {
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Navbar = ({un}) => {
+const Navbar = ({ un = "Username" }) => {
   const [username, setUsername] = useState(un);
-
-  useEffect(() => {
-    axios
-      .get("/api/user")
-      .then((response) => {
-        //setUsername(response.user.username);
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  }, []);
 
   return (
     <div className="w-full bg-white shadow-md py-4 px-6 flex justify-between items-center fixed top-0 left-0 z-10">
