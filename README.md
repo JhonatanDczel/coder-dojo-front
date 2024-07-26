@@ -1,5 +1,5 @@
 ---
-output: 
+output:
   pdf_document:
     citation_package: natbib
     keep_tex: true
@@ -8,8 +8,8 @@ output:
     template: ../svm-latex-ms.tex
 bibliography: master.bib
 header-includes:
-  -  \usepackage{hyperref}
-  - \usepackage{array}   
+  - \usepackage{hyperref}
+  - \usepackage{array}
   - \usepackage{caption}
   - \usepackage{graphicx}
   - \usepackage{siunitx}
@@ -24,8 +24,8 @@ biblio-style: apsr
 title: "A Pandoc Markdown Article Starter and Template"
 thanks: "Replication files are available on the author's Github account (http://github.com/svmiller). **Current version**: `r format(Sys.time(), '%B %d, %Y')`; **Corresponding author**: svmille@clemson.edu."
 author:
-- name: Steven V. Miller
-  affiliation: Clemson University
+  - name: Steven V. Miller
+    affiliation: Clemson University
 abstract: "This document provides an introduction to R Markdown, argues for its benefits, and presents a sample manuscript template intended for an academic audience. I include basic syntax to R Markdown and a minimal working example of how the analysis itself can be conducted within R with the `knitr` package."
 keywords: "pandoc, r markdown, knitr"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
@@ -43,67 +43,69 @@ endnote: no
     - Jhonatan Arias Quispe Jhonatan
     - Carbajal Gonzales Diego Alejandro
 
+    ***Url a los repositorios***
+
     Aplicacion para el evento de coder dojo que esta hosteando la ieee Computational Society rama Peru por parte de la UNSA.
 
 Las Especificaciones que recibimos de los coordinadores fueron:
+
 - 2 tipos de usuario: Profesor y Estudiante, y un admin
-- Salones virtuales, los profesores pueden crear su salon y asignarle tareas  a los alumnos de ese salon
+- Salones virtuales, los profesores pueden crear su salon y asignarle tareas a los alumnos de ese salon
 - Los Salones contienen a los estudiantes y a un profesor, ademas, posteos de parte de los profesores que los alumnos pueden ver para obtener material de estudio
 - El usuario objetivo son alumnos de secundaria, por lo que debe tener un cirto nivel de gamificacion que es un framework reciente para aumentar la atencion y enganche surgido por Octolasys group
 
- ## Los Modelos
+## Los Modelos
 
       Una vez entendido las relaciones que deben tener los modelos se puede pasar a programarlos y a migrarlos
 
-  Modelo para los Usuarios:
-  --
+Modelo para los Usuarios:
+--
 
     class AppUserManager(BaseUserManager):
-	  def create_user(self, email, password=None,):
-		if not email:
-			raise ValueError('An email is required.')
-		if not password:
-			raise ValueError('A password is required.')
-		email = self.normalize_email(email)
-		user = self.model(email=email,)
-		user.set_password(password)
-		user.save()
-		return user
-	  def create_superuser(self, email, password=None, **extra_fields):
-		if not email:
-			raise ValueError('An email is required.')
-		if not password:
-			raise ValueError('A password is required.')
-		user = self.create_user(email, password, extra_fields)
-		user.is_superuser = True
-		user.is_staff = True
-		user.save()
-		return user
+      def create_user(self, email, password=None,):
+    	if not email:
+    		raise ValueError('An email is required.')
+    	if not password:
+    		raise ValueError('A password is required.')
+    	email = self.normalize_email(email)
+    	user = self.model(email=email,)
+    	user.set_password(password)
+    	user.save()
+    	return user
+      def create_superuser(self, email, password=None, **extra_fields):
+    	if not email:
+    		raise ValueError('An email is required.')
+    	if not password:
+    		raise ValueError('A password is required.')
+    	user = self.create_user(email, password, extra_fields)
+    	user.is_superuser = True
+    	user.is_staff = True
+    	user.save()
+    	return user
 
 
     class AppUser(AbstractBaseUser, PermissionsMixin):
-	    user_id = models.AutoField(primary_key=True)
-	    email = models.EmailField(max_length=50, unique=True)
-	    username = models.CharField(max_length=50)
-	    is_staff = models.BooleanField(default=False)
-	    is_student = models.BooleanField(default=False)
-	    is_teacher = models.BooleanField(default=False)
+        user_id = models.AutoField(primary_key=True)
+        email = models.EmailField(max_length=50, unique=True)
+        username = models.CharField(max_length=50)
+        is_staff = models.BooleanField(default=False)
+        is_student = models.BooleanField(default=False)
+        is_teacher = models.BooleanField(default=False)
 
 
-	  USERNAME_FIELD = 'email'
-	  REQUIRED_FIELDS = ['username']
-	  objects = AppUserManager()
-	  def __str__(self):
-	  	return self.username
+      USERNAME_FIELD = 'email'
+      REQUIRED_FIELDS = ['username']
+      objects = AppUserManager()
+      def __str__(self):
+      	return self.username
 
+Decidimos usar el usuario base de django para obtener todas sus caracteristicas de la autenticacion
+por default de django. Las cuales son comprobaciones en la contraseña, sesion de usuario y autenticacion de usuario usando la encriptacion de los credenciales para cada usuario
 
-  Decidimos usar el usuario base de django para obtener todas sus caracteristicas de la autenticacion
-  por default de django. Las cuales son comprobaciones en la contraseña, sesion de usuario y autenticacion de usuario usando la encriptacion de los credenciales para cada usuario
-
-  Modelos para los salones
-  --
-      from django.db import models
-      from django.contrib.auth.models import AbstractUser
+Modelos para los salones
+--
+from django.db import models
+from django.contrib.auth.models import AbstractUser
 
       class User(AbstractUser):
           is_estudiante = models.BooleanField(default=False)
@@ -138,9 +140,8 @@ Las Especificaciones que recibimos de los coordinadores fueron:
           file = models.FileField(upload_to='entregas/')
           submitted_at = models.DateTimeField(auto_now_add=True)
 
+Resumen del codigo para el backend:
 
-  Resumen del codigo para el backend:
-      
     from rest_framework import generics, permissions
     from rest_framework.views import APIView
     from rest_framework.response import Response
@@ -218,7 +219,7 @@ Las Especificaciones que recibimos de los coordinadores fueron:
         queryset = Clase.objects.all()
         serializer_class = ClaseSerializer
 
-  No nos olvidemos que los unicos que pueden crear una nueva clase son los profesores, por lo que necesitamos verificar permisos, nos podemos ayudar de una clase de permisos:
+No nos olvidemos que los unicos que pueden crear una nueva clase son los profesores, por lo que necesitamos verificar permisos, nos podemos ayudar de una clase de permisos:
 
       from rest_framework import permissions
 
@@ -226,7 +227,7 @@ Las Especificaciones que recibimos de los coordinadores fueron:
         def has_permission(self, request, view):
             return request.user and request.user.is_authenticated and request.user.is_docente
 
-  Tambien debemos serializar la creacion de las clases para que los alumnos y el profesor puedan guardar esta clase que recien se crea: 
+Tambien debemos serializar la creacion de las clases para que los alumnos y el profesor puedan guardar esta clase que recien se crea:
 
       class PublicacionSerializer(serializers.ModelSerializer):
         class Meta:
@@ -266,8 +267,7 @@ Las Especificaciones que recibimos de los coordinadores fueron:
 
           return clase
 
-  
-  Por ultimo las urls en la app:
+Por ultimo las urls en la app:
 
     from django.urls import path
     from .views import LoginView, LogoutView, ClaseListView, ClaseDetailView, PublicacionListView, AsignacionListView
@@ -281,12 +281,13 @@ Las Especificaciones que recibimos de los coordinadores fueron:
         path('asignaciones/', AsignacionListView.as_view(), name='asignacion-list'),
     ]
 
-  Por el lado del front-end
+Por el lado del front-end
 
-  Los frameworks que se utilizaron para el frontend son React y Tailwind css, la pagina principal del login, esta basado en componentes: los componentes que contiene la pagina principal son: el Login, los logos, el mensaje de bienvenida, el boton de cambio de tema y el widget que permite abrir el minigame (DojoType).
+Los frameworks que se utilizaron para el frontend son React y Tailwind css, la pagina principal del login, esta basado en componentes: los componentes que contiene la pagina principal son: el Login, los logos, el mensaje de bienvenida, el boton de cambio de tema y el widget que permite abrir el minigame (DojoType).
 
-  -----
-  La pagina principal es el componente HomePage.jsx:
+---
+
+La pagina principal es el componente HomePage.jsx:
 
       function HomePage() {
       const [isDojoTypeOpen, setIsDojoTypeOpen] = useState(false);
@@ -364,9 +365,10 @@ Las Especificaciones que recibimos de los coordinadores fueron:
         </div>
       );
     }
-  -----
 
-  Mientras que la forma del classroom lo proporciona el componente Dashboard
+---
+
+Mientras que la forma del classroom lo proporciona el componente Dashboard
 
       export default function Bashboard(){
       return (
@@ -381,11 +383,10 @@ Las Especificaciones que recibimos de los coordinadores fueron:
           </div>
         </div>
         )
+
 }
 
 URL pagina live: https://coder-dojo-front.vercel.app/
-
-
 
 <!--
 # References
