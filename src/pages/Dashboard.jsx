@@ -3,6 +3,7 @@ import Navbar from "../components/common/Navbar";
 import Sidebar from "../components/common/Sidebar";
 import CoursesList from "../components/student/CoursesList";
 import StudentRoutes from "../routes/StudentRoutes";
+import { fetchData } from "../utils/fetchData";
 
 export default function Dashboard({ rol }) {
   const [data, setData] = useState(null);
@@ -14,35 +15,7 @@ export default function Dashboard({ rol }) {
   }, [data]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const csrfToken = document.cookie.split('; ')
-          .find(row => row.startsWith('csrftoken'))
-          ?.split('=')[1];
-
-        const response = await fetch('http://localhost:8000/api/', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken
-          },
-          credentials: 'include'
-        });
-
-        if (!response.ok) {
-          throw new Error('Error al obtener los datos de la API');
-        }
-
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    fetchData('http://localhost:8000/api/', setData, setLoading, setError);
   }, []);
 
   return (
