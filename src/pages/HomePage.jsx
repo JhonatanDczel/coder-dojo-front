@@ -15,9 +15,13 @@ function HomePage() {
   const [isDojoTypeOpen, setIsDojoTypeOpen] = useState(false);
 
   useEffect(() => {
+    const inputs = document.querySelectorAll("input");
     const handleKeyPress = (event) => {
       if (event.key === "k" || event.key === "K") {
-        setIsDojoTypeOpen(true);
+        if (inputs[0] !== document.activeElement && inputs[1] !== document.activeElement) {
+          setIsDojoTypeOpen(true);
+          console.log('esta fallando el username')
+        }
       }
     };
 
@@ -42,7 +46,7 @@ function HomePage() {
   useEffect(() => {
     console.log("desde homepage");
     console.log(isLogin);
-    if(isLogin && isLogin.authenticated) {
+    if (isLogin && isLogin.authenticated) {
       toast.success("Ya estás autenticado, bienvenido a CoderDojo");
     }
   }, [isLogin]);
