@@ -8,13 +8,14 @@ const Sidebar = ( {data}) => {
     const [isTasksOpen, setIsTasksOpen] = useState(false);
     const [isCoursesOpen, setIsCoursesOpen] = useState(false);
     const [tasks, setTasks] = useState([]);
-    const [courses, setCourses] = useState([]);
+    const [courses , setCourses] = useState([]);
 
   useEffect(() => {
-    console.log(data);  
+    console.log('esto es el parametro ', data);
     if (data) {
       setTasks(data[0].entregas);
-      setCourses(data[0]);
+      setCourses(data);
+      console.log("esto es el curso numero 1" , courses)
     } else {
       console.log("data is not in the expected format", data);
     }
@@ -27,7 +28,7 @@ const Sidebar = ( {data}) => {
                 <h1 className="text-2xl font-bold mb-8">CoderDojo</h1>
                 <ul>
                     <li className="mb-4 flex items-center">
-                        <FaHome className="mr-4" />
+                        <FaHome className="mr-4" /> 
                         <Link to="/clase/0">Inicio</Link>
                     </li>
                     <li className="mb-4 flex flex-col">
@@ -37,14 +38,14 @@ const Sidebar = ( {data}) => {
                         </div>
                         {isCoursesOpen && (
                             <ul className="mt-2 ml-8 list-none">
-                                {courses.map(course => (
-                                    <li key={course.id} className="text-sm mb-2">
-                                        <Link to={`/course/${course.id}`} className="flex items-center">
-                                            <img src={"https://concepto.de/wp-content/uploads/2014/08/programacion-2-e1551291144973.jpg"} alt={course.name} className="w-8 h-8 rounded-full mr-2" />
-                                            {course.name}
-                                        </Link>
-                                    </li>
-                                ))}
+                                    {courses.map(course => (
+                                        <li key={course.id} className="text-sm mb-2">
+                                            {/* <Link to={`/course/${course.id}`} className="flex items-center"> */}
+                                                <img src={"https://concepto.de/wp-content/uploads/2014/08/programacion-2-e1551291144973.jpg"} alt={course.name} className="w-8 h-8 rounded-full mr-2" />
+                                                {course.name}
+                                            {/* </Link> */}
+                                        </li>
+                                    ))}
                             </ul>
                         )}
                     </li>
@@ -60,10 +61,6 @@ const Sidebar = ( {data}) => {
                                 ))}
                             </ul>
                         )}
-                    </li>
-                    <li className="mb-4 flex items-center">
-                        <FaArchive className="mr-4" />
-                        <span>Clases archivadas</span>
                     </li>
                 </ul>
             </div>

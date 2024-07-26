@@ -27,13 +27,13 @@ export default function Dashboard({ rol }) {
       { 
         !isLogin && <PopUp close={true}/>
       }
-      <Sidebar data={data}/>
+      <Sidebar data={data} rol={rol}/>
       <div className="ml-64 w-full">
-        <Navbar data={data} />
+        <Navbar data={data} rol={rol}/>
         <div className="pt-16">
-          <StudentRoutes data={data}/>
+          {/* <StudentRoutes data={data}/> */}
         </div>
-        <CoursesList data={data}/>
+        <CoursesList data={data} rol={rol}/>
       </div>
     </div>
   );
