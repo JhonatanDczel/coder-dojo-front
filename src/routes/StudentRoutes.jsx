@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import StudentDashboard from '../pages/StudentDashboard';
 import CourseDetail from '../pages/CourseDetail';
 
-const StudentRoutes = () => {
+
+const StudentRoutes = ({data}) => {
     return (
         <Routes>
             <Route path="/dashboard" element={<StudentDashboard />} />

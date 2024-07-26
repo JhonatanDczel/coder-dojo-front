@@ -14,7 +14,6 @@ export const postData = async ({ url, body, setData, setLoading, setError }) => 
       credentials: 'include',
       body: JSON.stringify(body)
     });
-
     if (!response.ok) {
       throw new Error(`Error al enviar los datos a la API: ${response.statusText}`);
     }

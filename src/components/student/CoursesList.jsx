@@ -9,7 +9,7 @@ const courses = [
     { id: 3, name: 'Bases de datos', teacher: 'Edson Luque', imgSrc: '/path/to/image3.jpg' },
 ];
 
-const CoursesList = () => {
+const CoursesList = ({data}) => {
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <h2 className="text-3xl font-bold mb-6">Clases</h2>

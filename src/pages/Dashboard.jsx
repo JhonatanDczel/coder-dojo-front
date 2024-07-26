@@ -24,16 +24,16 @@ export default function Dashboard({ rol }) {
 
   return (
     <div className="flex">
-      {
-        !isLogin && <PopUp close={false}/>
+      { 
+        !isLogin && <PopUp close={true}/>
       }
-      <Sidebar />
+      <Sidebar data={data}/>
       <div className="ml-64 w-full">
         <Navbar data={data} />
         <div className="pt-16">
-          <StudentRoutes />
+          <StudentRoutes data={data}/>
         </div>
-        <CoursesList />
+        <CoursesList data={data}/>
       </div>
     </div>
   );

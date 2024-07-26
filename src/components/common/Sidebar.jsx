@@ -1,31 +1,26 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { FaHome, FaCalendar, FaClipboardList, FaArchive } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const tasks = [
-    { id: 1, name: 'Tarea 1', status: 'pendiente' },
-    { id: 2, name: 'Tarea 2', status: 'pendiente' },
-    { id: 3, name: 'Tarea 3', status: 'pendiente' },
-    { id: 4, name: 'Tarea 4', status: 'pendiente' },
-    { id: 5, name: 'Tarea 5', status: 'pendiente' },
-    { id: 6, name: 'Tarea 6', status: 'pendiente' },
-];
 
-const courses = [
-    { id: 1, name: 'Estructuras de datos', imgSrc: '/path/to/image1.jpg' },
-    { id: 2, name: 'Algoritmos', imgSrc: '/path/to/image2.jpg' },
-    { id: 3, name: 'Bases de datos', imgSrc: '/path/to/image3.jpg' },
-    { id: 4, name: 'Inteligencia Artificial', imgSrc: '/path/to/image4.jpg' },
-    { id: 5, name: 'Sistemas Operativos', imgSrc: '/path/to/image5.jpg' },
-];
 
-const Sidebar = () => {
+const Sidebar = ( {data}) => {
     const [isTasksOpen, setIsTasksOpen] = useState(false);
     const [isCoursesOpen, setIsCoursesOpen] = useState(false);
+    const [tasks, setTasks] = useState([]);
+    const [courses, setCourses] = useState([]);
 
+  useEffect(() => {
+    console.log(data);  
+    if (data) {
+      setTasks(data[0].entregas);
+      setCourses(data[0]);
+    } else {
+      console.log("data is not in the expected format", data);
+    }
+  }, [data]);
     const toggleTasks = () => setIsTasksOpen(!isTasksOpen);
     const toggleCourses = () => setIsCoursesOpen(!isCoursesOpen);
-
     return (
         <div className="w-64 h-full bg-white shadow-lg fixed">
             <div className="p-6">
@@ -45,7 +40,7 @@ const Sidebar = () => {
                                 {courses.map(course => (
                                     <li key={course.id} className="text-sm mb-2">
                                         <Link to={`/course/${course.id}`} className="flex items-center">
-                                            <img src={course.imgSrc} alt={course.name} className="w-8 h-8 rounded-full mr-2" />
+                                            <img src={"https://concepto.de/wp-content/uploads/2014/08/programacion-2-e1551291144973.jpg"} alt={course.name} className="w-8 h-8 rounded-full mr-2" />
                                             {course.name}
                                         </Link>
                                     </li>
@@ -60,8 +55,8 @@ const Sidebar = () => {
                         </div>
                         {isTasksOpen && (
                             <ul className="mt-2 ml-8 list-none">
-                                {tasks.slice(0, 5).map(task => (
-                                    <li key={task.id} className="text-sm">{task.name}</li>
+                                {tasks.map(task => (
+                                    <li key={task.id} className="text-sm">{task.estudiante.name + ": " + task.asignacion.title}</li>
                                 ))}
                             </ul>
                         )}
