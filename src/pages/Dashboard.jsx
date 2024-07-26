@@ -5,7 +5,7 @@ import CoursesList from "../components/student/CoursesList";
 import StudentRoutes from "../routes/StudentRoutes";
 
 export default function Dashboard({ rol }) {
-  const [data, setData] = useState(null); // Cambiado de [] a null para manejar mejor el estado de carga
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,7 +16,6 @@ export default function Dashboard({ rol }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Obtener el token CSRF desde las cookies
         const csrfToken = document.cookie.split('; ')
           .find(row => row.startsWith('csrftoken'))
           ?.split('=')[1];
@@ -27,7 +26,7 @@ export default function Dashboard({ rol }) {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrfToken
           },
-          credentials: 'include' // Incluir las credenciales (cookies) en la solicitud
+          credentials: 'include'
         });
 
         if (!response.ok) {
@@ -44,9 +43,8 @@ export default function Dashboard({ rol }) {
     };
 
     fetchData();
-  }, []); // El array vacío [] asegura que el efecto solo se ejecute una vez, cuando el componente se monta
+  }, []);
 
-  // Verifica que data esté definido y tenga elementos
   return (
     <div className="flex">
       <Sidebar />
