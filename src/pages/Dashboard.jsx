@@ -13,8 +13,6 @@ export default function Dashboard({ rol }) {
   const [error, setError] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
 
-
-
   useEffect(() => {
     if (isLogin) toast.success("Bienvenido a CoderDojo");
     else toast.error("No estas logueado aun");
@@ -58,14 +56,18 @@ export default function Dashboard({ rol }) {
           element={notLogued}
         />
       )}
-      <Sidebar />
-      <div className="ml-64 w-full">
-        <Navbar data={data} />
-        <div className="pt-16">
-          <StudentRoutes />
-        </div>
-        <CoursesList />
-      </div>
+
+      {isLogin && (
+        <>
+          <Sidebar data={data} rol={rol} />
+          <div className="ml-64 w-full">
+            <Navbar data={data} rol={rol} />
+            <div className="pt-16">{/* <StudentRoutes data={data}/> */}</div>
+            <CoursesList data={data} rol={rol} />
+          </div>
+        </>
+      )}
+
       <Toaster />
     </div>
   );
