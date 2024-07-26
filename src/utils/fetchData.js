@@ -1,5 +1,4 @@
 export const fetchData = async (url, setData, setLoading, setError) => {
-  setLoading(true);
   try {
     const csrfToken = document.cookie.split('; ')
       .find(row => row.startsWith('csrftoken'))
@@ -21,8 +20,6 @@ export const fetchData = async (url, setData, setLoading, setError) => {
     const result = await response.json();
     setData(result);
   } catch (error) {
-    setError(error);
   } finally {
-    setLoading(false);
   }
 };
