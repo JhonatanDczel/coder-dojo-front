@@ -4,14 +4,18 @@ import Sidebar from "../components/common/Sidebar";
 import CoursesList from "../components/student/CoursesList";
 import StudentRoutes from "../routes/StudentRoutes";
 import { fetchData } from "../utils/fetchData";
+import PopUp from "../components/common/PopUp";
 
 export default function Dashboard({ rol }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLogin, setIsLogin] = useState(false)
 
   useEffect(() => {
-    console.log(data)
+    if(data && Array.isArray(data) && data.length > 0) {
+      setIsLogin(true)
+    }
   }, [data]);
 
   useEffect(() => {
@@ -20,6 +24,9 @@ export default function Dashboard({ rol }) {
 
   return (
     <div className="flex">
+      {
+        !isLogin && <PopUp close={false}/>
+      }
       <Sidebar />
       <div className="ml-64 w-full">
         <Navbar data={data} />
