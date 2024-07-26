@@ -1,32 +1,28 @@
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export const fetchData = async (url, setData, setLoading, setError) => {
+  setLoading(true);
+  try {
+    const csrfToken = document.cookie.split('; ')
+      .find(row => row.startsWith('csrftoken'))
+      ?.split('=')[1];
 
-  useEffect(() => {
-    // Define la función que hará la llamada para obtener los datos
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://localhost:8000/api/');
-        if (!response.ok) {
-          throw new Error('Error al obtener los datos de la API');
-        }
-        const result = await response.json();
-        setData(result);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      credentials: 'include'
+    });
 
-    // Llama a la función para obtener los datos
-    fetchData();
-  }, []); // El array vacío [] asegura que el efecto solo se ejecute una vez, cuando el componente se monta
+    if (!response.ok) {
+      throw new Error('Error al obtener los datos de la API');
+    }
 
-  return (
-    <div>
-      {data.map(item => (
-        <div key={item.id}>{item.nombre}</div>
-      ))}
-    </div>
-  );
+    const result = await response.json();
+    setData(result);
+  } catch (error) {
+    setError(error);
+  } finally {
+    setLoading(false);
+  }
+};
