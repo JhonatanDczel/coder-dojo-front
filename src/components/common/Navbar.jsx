@@ -10,23 +10,24 @@ import { simplePost } from "../../utils/postData";
 import { Navigate } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
 import { fetchData } from "../../utils/fetchData";
-
+import postRequest from "../../utils/postRequest";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Navbar = ({ data }) => {
-  const [ userData, setUserData ] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    fetchData(`${apiUrl}/get_user_data`
-, setUserData, null, null);
-  }, [])
+    fetchData(`${apiUrl}/get_user_data`, setUserData, null, null);
+  }, []);
 
   function handleLogout() {
-    simplePost(`${apiUrl}/logout_user`
-, {}, () => {
+    const response = postRequest("/logout", {});
+    if(response.success) {
       window.location.href = "/";
-    })
+    }else {
+      console.log(response.error);
+    }
   }
 
   return (
