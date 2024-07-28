@@ -1,21 +1,28 @@
-export const postData = async ({ url, body, setData, setLoading, setError }) => {
+export const postData = async ({
+  url,
+  body,
+  setData,
+  setLoading,
+  setError,
+}) => {
   setLoading(true);
   try {
-    const csrfToken = document.cookie.split('; ')
-      .find(row => row.startsWith('csrftoken'))
-      ?.split('=')[1];
+    const csrfToken = getCookie("csrftoken");
 
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
       },
-      credentials: 'include',
-      body: JSON.stringify(body)
+      credentials: "same-origin",
+      body: JSON.stringify(body),
     });
+    const data = await response.json();
     if (!response.ok) {
-      throw new Error(`Error al enviar los datos a la API: ${response.statusText}`);
+      throw new Error(
+        `Error al enviar los datos a la API: ${response.statusText} ${data.detail}`
+      );
     }
 
     const result = await response.json();
@@ -27,27 +34,44 @@ export const postData = async ({ url, body, setData, setLoading, setError }) => 
   }
 };
 
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 export const simplePost = async (url, body, handleOK) => {
   try {
-    const csrfToken = document.cookie.split('; ')
-      .find(row => row.startsWith('csrftoken'))
-      ?.split('=')[1];
+    const csrfToken = getCookie("csrftoken");
 
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
       },
-      credentials: 'include',
-      body: JSON.stringify(body)
+      credentials: "same-origin",
+      body: JSON.stringify(body),
     });
 
-    if (!response.ok) {
-      throw new Error(`Error al enviar los datos a la API: ${response.statusText}`);
-    }
+    const data = await response.json();
 
-    handleOK();
+    if (!response.ok) {
+      throw new Error(
+        `Error al enviar los datos a la API: ${response.statusText} ${data.detail}`
+      );
+    } else {
+      handleOK();
+    }
 
     return await response.json();
   } catch (error) {
