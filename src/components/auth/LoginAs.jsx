@@ -3,17 +3,16 @@ import { PiNotebookFill } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../utils/fetchData";
 import { toast } from "sonner";
+import { Link, useNavigate } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// Función para obtener el token CSRF de las cookies
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
     const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
-      // ¿Esta cookie comienza con el nombre que queremos?
       if (cookie.substring(0, name.length + 1) === name + "=") {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
@@ -26,19 +25,17 @@ function getCookie(name) {
 const csrftoken = getCookie("csrftoken");
 
 export default function LoginAs({ un, psw }) {
+  const navigate = useNavigate();
   useEffect(() => {
     console.log(psw);
   }, [psw]);
-
-  const [userData, setUserData] = useState("");
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     console.log(un);
   }, [un]);
 
   async function loginUser(e, userType) {
+    console.log(userType);
     e.preventDefault();
     try {
       const response = await fetch(`${apiUrl}/loginUser`, {
@@ -50,42 +47,20 @@ export default function LoginAs({ un, psw }) {
         body: JSON.stringify({
           username: un,
           password: psw,
+          rol: userType,
         }),
         credentials: "include",
       });
 
       if (response.ok) {
+        console.log("response ok", response);
         console.log(userType);
-        fetchData(
-          `${apiUrl}/get_user_data`,
-          setUserData,
-          null,
-          null
-        ).then(() => {
-          console.log("esto es de aqui", userData);
-        });
-
-
-        if (userType === userData.rol) {
-          console.log("todo bien");
-          if (userType === "Docente") {
-            window.location.href = "/clase/1";
-          } else {
-            window.location.href = "/clase/0";
-          }
-        } else {
-          toast.error("No tienes permisos para acceder a esta página");
-        }
+        navigate(userType === "Docente" ? "/clase/1" : "/clase/0");
       } else {
-        console.error("Error al iniciar sesion (1):", response.statusText);
+        console.error("Error al iniciar sesion (1):", response);
       }
     } catch (error) {
       console.error("Error al iniciar sesión (2):", error);
-      if (userType === "teacher") {
-        window.location.href = "/clase/1";
-      } else {
-        window.location.href = "/clase/0";
-      }
     }
   }
 
