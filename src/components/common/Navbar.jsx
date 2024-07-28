@@ -8,18 +8,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { simplePost } from "../../utils/postData";
 import { Navigate } from "react-router-dom";
+import useFetchData from "../../hooks/useFetchData";
+import { fetchData } from "../../utils/fetchData";
 
 const Navbar = ({ data }) => {
-  const [name, setName] = useState("");
+  const [ userData, setUserData ] = useState(null);
 
   useEffect(() => {
-    if (data && Array.isArray(data) && data.length > 0 && data[0].docente) {
-      console.log(data[0].docente.name);
-      setName(data[0].docente.name);
-    } else {
-      console.log("data is not in the expected format", data);
-    }
-  }, [data]);
+    fetchData("http://localhost:8000/api/get_user_data", setUserData, null, null);
+  }, [])
 
   function handleLogout() {
     simplePost("http://localhost:8000/api/logout_user", {}, () => {
@@ -39,7 +36,7 @@ const Navbar = ({ data }) => {
         </button>
         <div className="flex items-center">
           <FaUserCircle size={24} className="mr-2" />
-          <span>{name}</span>
+          <span>{userData && userData.username}</span>
         </div>
       </div>
     </div>
