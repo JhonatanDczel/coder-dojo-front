@@ -55,7 +55,7 @@ export default function LoginAs({ un, psw }) {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("response ok", response);
+        console.log("response ok", data);
         console.log(userType);
         navigate(userType === "Docente" ? "/clase/1" : "/clase/0");
       } else {
