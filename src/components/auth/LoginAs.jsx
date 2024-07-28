@@ -1,16 +1,18 @@
 import { FaBriefcase } from "react-icons/fa";
 import { PiNotebookFill } from "react-icons/pi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { fetchData } from "../../utils/fetchData";
+import { toast } from "sonner";
 
 // Función para obtener el token CSRF de las cookies
 function getCookie(name) {
   let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
       // ¿Esta cookie comienza con el nombre que queremos?
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+      if (cookie.substring(0, name.length + 1) === name + "=") {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
@@ -19,13 +21,17 @@ function getCookie(name) {
   return cookieValue;
 }
 
-const csrftoken = getCookie('csrftoken');
+const csrftoken = getCookie("csrftoken");
 
 export default function LoginAs({ un, psw }) {
   useEffect(() => {
     console.log(psw);
   }, [psw]);
-  
+
+  const [userData, setUserData] = useState("");
+
+  useEffect(() => {}, []);
+
   useEffect(() => {
     console.log(un);
   }, [un]);
@@ -36,39 +42,47 @@ export default function LoginAs({ un, psw }) {
       const response = await fetch("http://localhost:8000/api/loginUser", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken,
         },
         body: JSON.stringify({
           username: un,
-          password: psw
+          password: psw,
         }),
-        credentials: 'include'
+        credentials: "include",
       });
 
-
       if (response.ok) {
-        console.log('todo bien en el login, response:')
-        console.log(response)
-        if (userType === 'teacher') {
-          window.location.href = '/clase/1';
+        console.log(userType);
+        fetchData(
+          "http://localhost:8000/api/get_user_data",
+          setUserData,
+          null,
+          null
+        ).then(() => {
+          console.log("esto es de aqui", userData);
+        });
+
+
+        if (userType === userData.rol) {
+          console.log("todo bien");
+          if (userType === "Docente") {
+            window.location.href = "/clase/1";
+          } else {
+            window.location.href = "/clase/0";
+          }
         } else {
-          window.location.href = '/clase/0';
+          toast.error("No tienes permisos para acceder a esta página");
         }
       } else {
-        console.error('Error al iniciar sesion (1):', response.statusText);
-        if (userType === 'teacher') {
-          window.location.href = '/clase/1';
-        } else {
-          window.location.href = '/clase/0';
-        }
+        console.error("Error al iniciar sesion (1):", response.statusText);
       }
     } catch (error) {
-      console.error('Error al iniciar sesión (2):', error);
-      if (userType === 'teacher') {
-        window.location.href = '/clase/1';
+      console.error("Error al iniciar sesión (2):", error);
+      if (userType === "teacher") {
+        window.location.href = "/clase/1";
       } else {
-        window.location.href = '/clase/0';
+        window.location.href = "/clase/0";
       }
     }
   }
@@ -77,12 +91,18 @@ export default function LoginAs({ un, psw }) {
     <div className="flex flex-col items-center mt-20">
       <h3 className="text-gray-100 text-lg font-semibold mb-2">Login as:</h3>
       <div className="flex gap-4">
-        <button className="flex items-center bg-gray-900 text-white px-5 py-3 rounded-md hover:bg-gray-700 
-                          focus:outline-none focus:ring-2 focus:ring-gray-900" onClick={(e) => loginUser(e, 'teacher')}>
+        <button
+          className="flex items-center bg-gray-900 text-white px-5 py-3 rounded-md hover:bg-gray-700 
+                          focus:outline-none focus:ring-2 focus:ring-gray-900"
+          onClick={(e) => loginUser(e, "Docente")}
+        >
           <FaBriefcase className="mr-2" /> Profesor
         </button>
-        <button className="flex items-center bg-gray-900 text-white px-5 py-3 rounded-md 
-        hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900" onClick={(e) => loginUser(e, 'student')}>
+        <button
+          className="flex items-center bg-gray-900 text-white px-5 py-3 rounded-md 
+        hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900"
+          onClick={(e) => loginUser(e, "Estudiante")}
+        >
           <PiNotebookFill className="mr-2" /> Estudiante
         </button>
       </div>
