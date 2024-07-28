@@ -49,7 +49,7 @@ export default function LoginAs({ un, psw }) {
           password: psw,
           rol: userType,
         }),
-        credentials: "same-origin",
+        credentials: "include",
       });
 
       const data = await response.json();
