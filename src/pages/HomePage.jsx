@@ -8,8 +8,9 @@ import { IoCloseCircle } from "react-icons/io5";
 import IEEELogo from "../assets/IEEE-CS-UNSA.png";
 import coderDojoLogo from "../assets/CoderDojo.png";
 import { fetchData } from "../utils/fetchData";
-import useFetchData from "../hooks/useFetchData";
 import { Toaster, toast } from "sonner";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function HomePage() {
   const [isDojoTypeOpen, setIsDojoTypeOpen] = useState(false);
@@ -18,9 +19,12 @@ function HomePage() {
     const inputs = document.querySelectorAll("input");
     const handleKeyPress = (event) => {
       if (event.key === "k" || event.key === "K") {
-        if (inputs[0] !== document.activeElement && inputs[1] !== document.activeElement) {
+        if (
+          inputs[0] !== document.activeElement &&
+          inputs[1] !== document.activeElement
+        ) {
           setIsDojoTypeOpen(true);
-          console.log('esta fallando el username')
+          console.log("esta fallando el username");
         }
       }
     };
@@ -35,12 +39,7 @@ function HomePage() {
 
   useEffect(() => {
     // haz el fetch aqui y cargalo en islogin, set islogin
-    fetchData(
-      "http://localhost:8000/api/is_authenticated",
-      setIsLogin,
-      null,
-      null
-    );
+    fetchData(`${apiUrl}/is_authenticated`, setIsLogin, null, null);
   }, []);
 
   useEffect(() => {

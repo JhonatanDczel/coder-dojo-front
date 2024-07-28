@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { fetchData } from "../../utils/fetchData";
 import { toast } from "sonner";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 // Función para obtener el token CSRF de las cookies
 function getCookie(name) {
   let cookieValue = null;
@@ -39,7 +41,7 @@ export default function LoginAs({ un, psw }) {
   async function loginUser(e, userType) {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/loginUser", {
+      const response = await fetch(`${apiUrl}/loginUser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +57,7 @@ export default function LoginAs({ un, psw }) {
       if (response.ok) {
         console.log(userType);
         fetchData(
-          "http://localhost:8000/api/get_user_data",
+          `${apiUrl}/get_user_data`,
           setUserData,
           null,
           null

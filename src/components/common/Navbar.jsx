@@ -11,15 +11,20 @@ import { Navigate } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
 import { fetchData } from "../../utils/fetchData";
 
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const Navbar = ({ data }) => {
   const [ userData, setUserData ] = useState(null);
 
   useEffect(() => {
-    fetchData("http://localhost:8000/api/get_user_data", setUserData, null, null);
+    fetchData(`${apiUrl}/get_user_data`
+, setUserData, null, null);
   }, [])
 
   function handleLogout() {
-    simplePost("http://localhost:8000/api/logout_user", {}, () => {
+    simplePost(`${apiUrl}/logout_user`
+, {}, () => {
       window.location.href = "/";
     })
   }

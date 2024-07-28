@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/common/Navbar";
 import Sidebar from "../components/common/Sidebar";
 import CoursesList from "../components/student/CoursesList";
-import StudentRoutes from "../routes/StudentRoutes";
 import { fetchData } from "../utils/fetchData";
 import PopUp from "../components/common/PopUp";
 import { toast, Toaster } from "sonner";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Dashboard({ rol }) {
   const [data, setData] = useState(null);
@@ -26,7 +27,7 @@ export default function Dashboard({ rol }) {
   }, [data]);
 
   useEffect(() => {
-    fetchData("http://localhost:8000/api/", setData, setLoading, setError);
+    fetchData(`${apiUrl}/`, setData, setLoading, setError);
   }, []);
 
   function handleLogin() {
