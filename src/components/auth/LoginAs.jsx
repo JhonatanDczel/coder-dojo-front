@@ -52,12 +52,14 @@ export default function LoginAs({ un, psw }) {
         credentials: "include",
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         console.log("response ok", response);
         console.log(userType);
         navigate(userType === "Docente" ? "/clase/1" : "/clase/0");
       } else {
-        console.error("Error al iniciar sesion (1):", response);
+        console.error("Error al iniciar sesion (1):", data.detail);
       }
     } catch (error) {
       console.error("Error al iniciar sesión (2):", error);
