@@ -25,8 +25,7 @@ export const postData = async ({
       );
     }
 
-    const result = await response.json();
-    setData(result);
+    setData(data);
   } catch (error) {
     setError(error);
   } finally {
@@ -73,7 +72,7 @@ export const simplePost = async (url, body, handleOK) => {
       handleOK();
     }
 
-    return await response.json();
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
