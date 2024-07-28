@@ -95,10 +95,6 @@ que es un componente de react:
 
 ```js
 // src/components/common/ThemeSwitcher.js
-import { useState, useEffect } from "react";
-import { FaSun, FaMoon, FaLaptop } from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
-
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useState("system");
   const [isOpen, setIsOpen] = useState(false);
@@ -125,63 +121,27 @@ const ThemeSwitcher = () => {
     setIsOpen(false); // Close the dropdown after selection
   };
 
-  return (
-    <div className="relative inline-block text-left">
-      <div>
-        <button
-          type="button"
-          className="inline-flex items-center px-4 py-2 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 shadow-sm hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span className="mr-2">
-            {theme === "dark" ? (
-              <FaMoon />
-            ) : theme === "light" ? (
-              <FaSun />
-            ) : (
-              <FaLaptop />
-            )}
-          </span>
-          <IoIosArrowDown
-            className={`ml-2 transition-transform ${
-              isOpen ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-      </div>
-      {isOpen && (
-        <div className="absolute bottom-full right-0 z-10 mb-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg">
-          <div className="p-1">
-            <button
-              type="button"
-              className="flex items-center px-4 py-2 w-full text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
-              onClick={() => handleThemeChange("light")}
-            >
-              <FaSun className="mr-2" /> Light
-            </button>
-            <button
-              type="button"
-              className="flex items-center px-4 py-2 w-full text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
-              onClick={() => handleThemeChange("dark")}
-            >
-              <FaMoon className="mr-2" /> Dark
-            </button>
-            <button
-              type="button"
-              className="flex items-center px-4 py-2 w-full text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
-              onClick={() => handleThemeChange("system")}
-            >
-              <FaLaptop className="mr-2" /> System
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ThemeSwitcher;
 ```
+
+### DojoType
+
+Junto al concepto de gamificación viene esta idea: hacer un centro de entrenamiento previo, en el que los alumnos puedan ejercitar sus habilidades de tipeo antes de hacer las lecciones de CodeDojo.
+
+Para esto, hicimos DojoType!, que es un minigame a modo de test de mecanografia que mide tu velocidad y la guarda para mantener un record que romper.
+
+El diseño inicial pensado fue este:
+
+![](./img/dojotype.png)
+
+Para su implementación, y en pos de la modularización de código, se hizo un nuevo componente, que llamamos dentro de un PopUp (también componente) que contendrá el juego, esto nos permite, por ejemplo, escalar el minigame si asi lo queremos hasta convertirlo en un proyecto independiente, la vista final fue esta:
+
+**_DojoType_**
+
+![](./img/dojotype-run.png)
+
+**_Visualización de los datos del test_**
+
+![](./img/dojotype-wpm.png)
 
 ### Composición de la interfaz
 
@@ -189,10 +149,10 @@ La interfaz esta conmpuesta siguiendo reglas de código limpio y buenas práctic
 
 ```js
 //src/pages/HomePage.jsx
-        <div className="relative flex flex-col items-center justify-center min-h-screen ">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative bg-white bg-opacity-70 backdrop-blur-md p-8 rounded-lg shadow-lg text-center max-w-lg">
-              <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
+        <div className="...">
+          <div className="...">
+            <div className="...">
+              <h1 className="...">
                 ¡Bienvenido a CoderDojo!
               </h1>
               <p className="text-lg text-gray-700">
@@ -218,7 +178,6 @@ La interfaz esta conmpuesta siguiendo reglas de código limpio y buenas práctic
           </div>
         </div>
       </div>
-
       <LoginForm />
 ```
 
@@ -229,6 +188,77 @@ Las vistas de cursos y de cada curso individual una vez que el usuario se autent
 ![](./img/view-dashboar.png)
 
 ![](./img/cursos-dashboard.png)
+
+Para los cursos se hacen peticiones al backend, que devuelven una lista de cursos en los que el docente/estudiante forma parte, todos estos datos se usan para dibujar la interfaz en el front:
+
+```json
+[
+  {
+    "id": 1,
+    "docente": {
+      "id": 1,
+      "name": "Ricardo"
+    },
+    "name": "Frameworks Web",
+    "entregas": [
+      {
+        "id": 1,
+        "file": "/entregas/GITHUB.txt",
+        "submitted_at": "2024-07-24T08:41:23.819654Z",
+        "estudiante": {
+          "id": 1,
+          "name": "pepe"
+        },
+        "asignacion": {
+          "id": 1,
+          "title": "Generar paginas con Javascript",
+          "description": "Manipulando el dom con javascript"
+        }
+      }
+    ],
+    "publicaciones": [
+      {
+        "id": 1,
+        "content": "Ejemplo de publicacion para alumnos"
+      }
+    ],
+    "estudiantes": [
+      {
+        "id": 1,
+        "name": "pepe"
+      },
+      {
+        "id": 2,
+        "name": "Raquel"
+      }
+    ]
+  }
+]
+```
+
+### Verificación de inicio de sesión
+
+Para evitar que cualquier persona intente entrar con el link directo, se desarrolló un sistema de verificación, que hace un llamado a la API para ver si una `sessionId` esta autenticada o no.
+
+La llamada a la API nos da algo como esto:
+
+```json
+// el endpoint es /api/is_authenticated
+HTTP 200 OK
+Allow: GET, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+  "authenticated": true
+}
+```
+
+En caso de no estar autenticado el usuario, se muestra un `PopUp` y un mensaje emergente invitándolo a registrarse:
+
+![](./img/not-logued.png)
+
+###
 
 **Composicion**:
 
@@ -249,21 +279,43 @@ return (
 );
 ```
 
+Para el ruteo de la web se usó la biblioteca `react-router-dom`, la estructura es la siguiente:
+
+```js
+<Routes>
+  <Route path="/" element={<HomePage />} />
+  <Route path="/clase/1" element={<DashBoard rol={1} />} />
+  <Route path="/clase/0" element={<DashBoard rol={0} />} />
+</Routes>
+```
+
 ## Backend
+
+### Introducción
+
+Ahora se procederá a describir la implementación del backend del proyecto CoderDojo, una plataforma educativa diseñada para facilitar la gestión de clases, publicaciones y asignaciones para estudiantes y docentes.
+
+Los servicios API del back y la lógica están desarrollados en Django y utiliza Django REST Framework para la creación de APIs. A continuación, se detalla la estructura de los modelos, vistas y serializadores, así como la configuración de las rutas y permisos.
 
 ### Modelos
 
-Una vez entendidas las relaciones que deben tener los modelos, se procede a programarlos y migrarlos.
+Los modelos representan la estructura de la base de datos y las relaciones entre los diferentes elementos de la aplicación.
 
-**Modelo para los Usuarios:**
+A continuación, se describen los modelos más importantes implementados en este proyecto.
+
+#### Modelo para los Usuarios
+
+El modelo `AppUser` extiende `AbstractBaseUser` y `PermissionsMixin` para crear un sistema de autenticación personalizado.
+
+Este modelo define diferentes tipos de usuarios (estudiantes y docentes) y gestiona la creación de usuarios y superusuarios a través del `AppUserManager`.
 
 ```python
 class AppUserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
-            raise ValueError('An email is required.')
+            raise ValueError('Se requiere un correo electrónico.')
         if not password:
-            raise ValueError('A password is required.')
+            raise ValueError('Se requiere una contraseña.')
         email = self.normalize_email(email)
         user = self.model(email=email)
         user.set_password(password)
@@ -271,16 +323,16 @@ class AppUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('An email is required.')
-        if not password:
-            raise ValueError('A password is required.')
         user = self.create_user(email, password, **extra_fields)
         user.is_superuser = True
         user.is_staff = True
         user.save()
         return user
+```
 
+El `AppUserManager` maneja la creación de usuarios y superusuarios, asegurando que se proporcionen un correo electrónico y una contraseña.
+
+```python
 class AppUser(AbstractBaseUser, PermissionsMixin):
     user_id = models.AutoField(primary_key=True)
     email = models.EmailField(max_length=50, unique=True)
@@ -297,39 +349,40 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         return self.username
 ```
 
-**Modelo para los Salones:**
+El modelo `AppUser` define los atributos básicos del usuario y extiende funcionalidades de `AbstractBaseUser` y `PermissionsMixin`.
+
+#### Modelo para los Salones
+
+El modelo `Clase` y sus relaciones con `Estudiante` y `Docente` son fundamentales para la organización de las clases y la asignación de tareas. También se incluyen modelos para gestionar publicaciones y entregas de asignaciones.
 
 ```python
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-class User(AbstractUser):
-    is_estudiante = models.BooleanField(default=False)
-    is_docente = models.BooleanField(default=False)
-
-class Estudiante(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-
-class Docente(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-
 class Clase(models.Model):
     name = models.CharField(max_length=100)
     estudiantes = models.ManyToManyField(Estudiante, related_name='clases')
     docente = models.ForeignKey(Docente, on_delete=models.CASCADE, related_name='clases')
+```
 
+El modelo `Clase` define una clase con un nombre, una relación muchos-a-muchos con `Estudiante`, y una relación muchos-a-uno con `Docente`.
+
+```python
 class Publicacion(models.Model):
     content = models.TextField()
     clase = models.ForeignKey(Clase, on_delete=models.CASCADE, related_name='publicaciones')
+```
 
+El modelo `Publicacion` gestiona el contenido de las publicaciones dentro de una clase específica.
+
+```python
 class Asignacion(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     due_date = models.DateTimeField()
     clase = models.ForeignKey(Clase, on_delete=models.CASCADE, related_name='asignaciones')
+```
 
+El modelo `Asignacion` define las tareas con un título, descripción, fecha de entrega y la relación con una clase.
+
+```python
 class Entrega(models.Model):
     asignacion = models.ForeignKey(Asignacion, on_delete=models.CASCADE, related_name='entregas')
     estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name='entregas')
@@ -337,19 +390,15 @@ class Entrega(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
 ```
 
+El modelo `Entrega` gestiona las entregas de las asignaciones, incluyendo el archivo entregado y la fecha de entrega.
+
 ### Vistas y Serializadores
 
-**Vistas:**
+#### Vistas
+
+Las vistas en Django REST Framework gestionan las solicitudes HTTP y devuelven las respuestas adecuadas. En este proyecto, se implementaron vistas para gestionar el inicio y cierre de sesión, así como para listar, crear, actualizar y eliminar clases, publicaciones y asignaciones.
 
 ```python
-from rest_framework import generics, permissions
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
-from .models import Clase, Publicacion, Asignacion, Entrega, Estudiante, Docente
-from .serializers import ClaseSerializer, PublicacionSerializer, AsignacionSerializer
-
 class LoginView(APIView):
     permission_classes = (permissions.AllowAny,)
 
@@ -360,13 +409,12 @@ class LoginView(APIView):
         if user is not None:
             login(request, user)
             return HttpResponseRedirect('/clases')
-        return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+```
 
-class LogoutView(APIView):
-    def post(self, request):
-        logout(request)
-        return HttpResponseRedirect('/')
+La `LoginView` permite a los usuarios autenticarse con sus credenciales y redirige a la página de clases si la autenticación es exitosa.
 
+```python
 class ClaseListView(generics.ListCreateAPIView):
     serializer_class = ClaseSerializer
     permission_classes = [IsAuthenticated]
@@ -386,56 +434,15 @@ class ClaseListView(generics.ListCreateAPIView):
         if user.is_docente:
             docente = get_object_or_404(Docente, user=user)
             serializer.save(docente=docente)
-
-class PublicacionListView(generics.ListCreateAPIView):
-    serializer_class = PublicacionSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_estudiante:
-            estudiante = get_object_or_404(Estudiante, user=user)
-            return Publicacion.objects.filter(clase__in=estudiante.clases.all())
-        elif user.is_docente:
-            docente = get_object_or_404(Docente, user=user)
-            return Publicacion.objects.filter(clase__docente=docente)
-        return Publicacion.objects.none()
-
-class AsignacionListView(generics.ListCreateAPIView):
-    serializer_class = AsignacionSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_estudiante:
-            estudiante = get_object_or_404(Estudiante, user=user)
-            return Asignacion.objects.filter(clase__in=estudiante.clases.all())
-        elif user.is_docente:
-            docente = get_object_or_404(Docente, user=user)
-            return Asignacion.objects.filter(clase__docente=docente)
-        return Asignacion.objects.none()
-
-class ClaseDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Clase.objects.all()
-    serializer_class = ClaseSerializer
 ```
 
-**Serializadores:**
+La `ClaseListView` maneja la lista y creación de clases. Filtra las clases según el tipo de usuario (estudiante o docente) y asegura que solo los docentes puedan crear clases.
+
+#### Serializadores
+
+Los serializadores convierten los modelos de Django en formatos JSON para que puedan ser enviados como respuestas HTTP. Aquí se presentan los serializadores implementados para `Clase`, `Publicacion`, y `Asignacion`.
 
 ```python
-from rest_framework import serializers
-from .models import Clase, Publicacion, Asignacion, Estudiante, Docente
-
-class PublicacionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Publicacion
-        fields = '__all__'
-
-class AsignacionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Asignacion
-        fields = '__all__'
-
 class ClaseSerializer(serializers.ModelSerializer):
     publicaciones = PublicacionSerializer(many=True, required=False)
     asignaciones = AsignacionSerializer(many=True, required=False)
@@ -465,7 +472,11 @@ class ClaseSerializer(serializers.ModelSerializer):
         return clase
 ```
 
-**URLs:**
+El `ClaseSerializer` convierte los datos de las clases en formato JSON y maneja la creación de clases junto con sus publicaciones, asignaciones y estudiantes asociados.
+
+### URLs
+
+Las URLs definen los puntos de entrada para las vistas de la API. A continuación, se presenta la configuración de las rutas para las operaciones de autenticación, gestión de clases, publicaciones y asignaciones.
 
 ```python
 from django.urls import path
@@ -481,12 +492,46 @@ urlpatterns = [
 ]
 ```
 
-**Permisos:**
+### Diagrama
 
-```python
-from rest_framework import permissions
+Después de hacer las implementaciones, se tiene el siguiente diagrama que representa la estructura interna de nuestra base de datos:
 
-class IsDocente(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.is_authenticated and request.user.is_docente
+![](./img/my_project_diagram.png)
+
+## Desplegando en la web
+
+Para hacer el despliegue del proyecto se dividieron los servicios por dos lados.
+
+El front estaría desplegado en `vercel`, como un servicio estático, aprovechando el empaquetamiento que nos hace vite con el comando
+
+```bash
+npm run build
 ```
+
+El back está desplegado en `railway`, un servicio cloud que nos permite hostear proyectos en `django` de una manera fácil y rápida.
+
+Al momento de llevar nuestro backend a producción, necesitamos sustituir `db.sqlite3` con una base de datos real, es asi que decidimos usar `postgresql`, servicio que podemos integrar en railway para tener nuestra base de datos guardada ahí.
+
+**_Dashboard de railway_**
+
+![](./img/railway.png)
+
+### Prueba
+
+Para la prueba del backend se puede acceder a [https://web-production-79e8a.up.railway.app](https://web-production-79e8a.up.railway.app) y probar el inicio de sesión con estas credenciales:
+
+```json
+{
+  "username": "frennow",
+  "password": "coderdojo",
+  "rol": "Docente"
+}
+```
+
+Para probar puede rutear el endpoint `/api/loginUser`, o puede entrar directamente desde [este enlace](https://web-production-79e8a.up.railway.app/api/loginUser) deberia ver algo como:
+
+![](./img/login-api.png)
+
+Haciendo click en `POST` debería darle un token a la sesión actual del navegador.
+
+Para comprobar que está logueado puede entrar a `/api/` que direcciona a `/api/clase/1`, puede acceder mediante (este enlace)[https://web-production-79e8a.up.railway.app/api]
