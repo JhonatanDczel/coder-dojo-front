@@ -22,7 +22,7 @@ const Navbar = ({ data }) => {
   }, []);
 
   function handleLogout() {
-    const response = postRequest("/logout", {});
+    const response = postRequest("/logout_user", {});
     if(response.success) {
       window.location.href = "/";
     }else {
