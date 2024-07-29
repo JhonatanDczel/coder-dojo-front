@@ -1,18 +1,25 @@
 ---
 title: "CoderDojo website"
 subtitle: "Programación Web 2 - Proyecto Final"
-abstract: "Este proyecto está destinado a ser usado por los estudiantes del evento CoderDojo, para que puedan encontrar los recursos de aprendizaje y hacer el envío de sus tareas."
 keywords: "Django, react, django rest framework, javascript, coderdojo"
 date: \today
 ---
 
+# CoderDojo website
+
+**Proyecto final - Programación Web 2**
+
+## Resumen
+
+***"Este proyecto está destinado a ser usado por los estudiantes del evento CoderDojo, para que puedan encontrar los recursos de aprendizaje y hacer el envío de sus tareas."***
+
 ## Integrantes
 
-- name: Arias Quispe Jhonatan David
+- Alumno: Arias Quispe Jhonatan David
 
-- name: Chambilla Perca Ricardo Mauricio
+- Alumno: Chambilla Perca Ricardo Mauricio
 
-- name: Carbajal Gonzales Diego Alejandro
+- Alumno: Carbajal Gonzales Diego Alejandro
 
 **URL a los repositorios:**
 
@@ -20,9 +27,9 @@ date: \today
 
 - Backend: <https://github.com/rikich3/coderDojoBack>
 
-# Coder Dojo y la IEEE CS Unsa
+## Coder Dojo y la IEEE CS Unsa
 
-Aplicación para el evento de Coder Dojo que está organizando la **_IEEE Computational Society rama Perú_** por parte de la **_UNSA_**.
+Aplicación para el evento de Coder Dojo que está organizando la ***IEEE Computational Society rama Perú*** por parte de la ***UNSA***.
 
 ## Requerimientos
 
@@ -79,11 +86,11 @@ El login se hizo en `react` con un diseño basado en componentes, se enfatizó e
 
 Con ese objetivo en mente, se optó por una interfaz sencilla, clara y concisa, que destaque los elementos importantes y que tenga un toque fresco, esta es una vista de la interfaz:
 
-**_Modo dark_**
+***Modo dark***
 
 ![](./img/login-dark.png)
 
-**_Modo light_**
+***Modo light***
 
 ![](./img/login-light.png)
 
@@ -135,11 +142,11 @@ El diseño inicial pensado fue este:
 
 Para su implementación, y en pos de la modularización de código, se hizo un nuevo componente, que llamamos dentro de un PopUp (también componente) que contendrá el juego, esto nos permite, por ejemplo, escalar el minigame si asi lo queremos hasta convertirlo en un proyecto independiente, la vista final fue esta:
 
-**_DojoType_**
+***DojoType***
 
 ![](./img/dojotype-run.png)
 
-**_Visualización de los datos del test_**
+***Visualización de los datos del test***
 
 ![](./img/dojotype-wpm.png)
 
@@ -512,7 +519,7 @@ El back está desplegado en `railway`, un servicio cloud que nos permite hostear
 
 Al momento de llevar nuestro backend a producción, necesitamos sustituir `db.sqlite3` con una base de datos real, es asi que decidimos usar `postgresql`, servicio que podemos integrar en railway para tener nuestra base de datos guardada ahí.
 
-**_Dashboard de railway_**
+***Dashboard de railway***
 
 ![](./img/railway.png)
 
@@ -534,4 +541,4 @@ Para probar puede rutear el endpoint `/api/loginUser`, o puede entrar directamen
 
 Haciendo click en `POST` debería darle un token a la sesión actual del navegador.
 
-Para comprobar que está logueado puede entrar a `/api/` que direcciona a `/api/clase/1`, puede acceder mediante (este enlace)[https://web-production-79e8a.up.railway.app/api]
+Para comprobar que está logueado puede entrar a `/api/` que direcciona a `/api/clase/1`, puede acceder mediante [este enlace](https://web-production-79e8a.up.railway.app/api)
